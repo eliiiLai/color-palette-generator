@@ -2,4 +2,43 @@
 
 body {
   font-family: system-ui, sans-serif;
+  margin: 0;
+  padding: 24px;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+}
+
+/* Display color cards in a horizontal row 横排显示色卡 */
+#palette-container {
+  display: flex;
+  gap: 12px;
+}
+
+.color-card {
+  flex: 1;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.color-swatch {
+  height: 120px;
+  position: relative;
+}
+
+.lock-icon {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  font-size: 14px;
+}
+
+.card-body {
+  padding: 10px;
 }

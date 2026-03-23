@@ -5,7 +5,10 @@
 import { generatePalette } from "./colorUtils.js";
 import { fetchColorName } from "./api.js";
 
-// Test that all modules are connected correctly（测试模块是否连通）
+// Test color generation with all four harmony modes
+// 测试四种 harmony 模式是否都能正常生成颜色
 console.log("main.js loaded");
-console.log("palette test:", generatePalette("analogous"));
-console.log("api test:", fetchColorName("E88D3E"));
+console.log("analogous:", generatePalette("analogous"));
+console.log("complementary:", generatePalette("complementary"));
+console.log("triadic:", generatePalette("triadic"));
+console.log("split-comp:", generatePalette("split-comp"));

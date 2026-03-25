@@ -1,3 +1,5 @@
+// Entry point — connects all modules, handles DOM and events
+
 // Import functions from other modules
 import { generatePalette } from "./colorUtils.js";
 import { fetchColorName } from "./api.js";
@@ -46,7 +48,7 @@ function renderPalette(colors) {
         <p class="hex-val">#${color.hex}</p>
         <p class="color-name">${color.name || "Loading..."}</p>
         <div class="card-actions">
-          <button class="lock-btn" data-index="${index}">Lock</button>
+        <button class="lock-btn" data-index="${index}">${color.locked ? "Unlock" : "Lock"}</button>
           <button class="shuffle-btn" data-index="${index}">Shuffle</button>
           <button class="copy-btn" data-index="${index}">Copy</button>
         </div>
@@ -72,6 +74,7 @@ async function generate() {
     // Keep locked colors, replace unlocked ones
     const newColors = generatePalette(currentMode);
 
+    // Conditional operator syntax: condition ? exprIfTrue : exprIfFalse
     currentColors = currentColors.length === 0
         ? newColors
         : currentColors.map((color, i) => (color.locked ? color : newColors[i]));
@@ -98,8 +101,10 @@ function attachCardListeners() {
             const index = event.target.dataset.index;
 
             // Don't shuffle if the color is locked
-            if (currentColors[index].locked) return;
-
+            if (currentColors[index].locked) {
+                return;
+            }
+            
             // Generate a new color based on the original harmony mode
             // Keep trying until we get a color that doesn't already exist in the palette
             let newColor;
@@ -107,8 +112,8 @@ function attachCardListeners() {
 
             do {
                 [newColor] = generatePalette(lockedMode);
-            } while (existingHexes.includes(newColor.hex)); 
-            
+            } while (existingHexes.includes(newColor.hex));
+
             newColor.name = await fetchColorName(newColor.hex);
 
             currentColors[index] = newColor;
